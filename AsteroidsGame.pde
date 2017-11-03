@@ -1,30 +1,28 @@
 Spaceship spaceship;
-double direction;
 public void setup() 
 {
   size(500, 500);
   spaceship = new Spaceship();
-  direction = 0;
 }
 public void draw() 
 {
-  spaceship.show();
+  background(255);
   spaceship.move();
-}
+  spaceship.show();
+} 
 
 public void KeyPressed() {
   if (key=='w') { //up
-    spaceship.accelerate(5);
+    spaceship.accelerate(0.5);
   }
   if (key=='a') { //left
-     direction = spaceship.getX() - spaceship.getDirectionX();
-      spaceship.move();
+    spaceship.turn(-20);
   }
   if (key=='s') { //down
-    direction = spaceship.getPointDirection() - 1;
+    spaceship.accelerate(0.5);
   }
   if (key=='d') { //right
-    direction = spaceship.getPointDirection() + 1;
+    spaceship.turn(20);
   }
   if (key=='r') { //hyperspace
   }
