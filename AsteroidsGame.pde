@@ -5,7 +5,7 @@ public void setup()
   size(500, 500);
   spaceship = new Spaceship();
   stars = new Stars[500];
-  for (int i=0; stars.length<500; i++){
+  for (int i=0; i < stars.length; i++){
     stars[i] = new Stars();
   }
 }
@@ -14,8 +14,9 @@ public void draw()
   background(255);
   spaceship.move();
   spaceship.show();
-  for (int i=0; stars.length<500; i++){
+  for (int i=0; i < stars.length; i++){
     stars[i].show();
+    stars[i].move();
   }
   
 } 
@@ -34,5 +35,9 @@ public void keyPressed() {
     spaceship.turn(20);
   }
   if (key=='r') { //hyperspace
+    spaceship.setDirectionX(0);
+    spaceship.setDirectionY(0);
+    spaceship.setX((int)(Math.random()*300)+100);
+    spaceship.setY((int)(Math.random()*300)+100);
   }
 }
