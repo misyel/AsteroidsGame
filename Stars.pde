@@ -1,16 +1,12 @@
 class Stars //note that this class does NOT extend Floater
 {
-  private double myX, myY;
+  private int myX, myY;
   public Stars(){
-    myX = 250;
-    myX = 250;
+    myX = (int)(Math.random()*501)+1;
+    myY = (int)(Math.random()*501)+1;
   }
   public void show(){
-    fill(255,100,100);
-    ellipse((float)myX,(float)myY,5,5);
+    fill(255);
+    ellipse(myX,myY,2,2);
   }
-  public void move(){
-    myX = myX + (Math.random()*501);
-    myY = myY + (Math.random()*501);
-}
 }

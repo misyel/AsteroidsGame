@@ -1,9 +1,8 @@
-class Spaceship extends Floater
-{   
-  Spaceship(){
-    corners = 4;
-    int [] xS = {-8,16,-8,-2};
-    int [] yS = {-8,0,8,0};
+class Asteroid extends Floater{
+  Asteroid(){
+    corners = 6;
+    int [] xS = {-20,16,-10,-30,10,-30};
+    int [] yS = {-16,5,-18,20,-10,-30};
     xCorners = xS;
     yCorners = yS;
     myColor = 255;
@@ -14,7 +13,7 @@ class Spaceship extends Floater
     myPointDirection = 0;
     
   }
-    public void setX(int x){
+  public void setX(int x){
       myCenterX = x;
     }
     public int getX(){
