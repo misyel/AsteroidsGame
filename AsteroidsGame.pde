@@ -17,6 +17,7 @@ public void draw()
   spaceship.move();
   spaceship.show();
   asteroid.show();
+  asteroid.move();
   for (int i=0; i < stars.length; i++){
     stars[i].show();
   }
