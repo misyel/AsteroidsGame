@@ -10,7 +10,7 @@ public void setup()
     stars[i] = new Stars();
   }
   for (int i=0; i < 20; i++){
-    asteroid.add(i,new Asteroid());
+    asteroid.add(new Asteroid());
   }
 }
 public void draw() 
