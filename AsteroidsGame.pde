@@ -9,24 +9,37 @@ public void setup()
   for (int i=0; i < stars.length; i++){
     stars[i] = new Stars();
   }
-  for (int i=0; i < 20; i++){
+  for (int i=0; i < 10; i++){
     asteroid.add(new Asteroid());
   }
 }
 public void draw() 
 {
+  makeStuff();
+  collisionCheck();
+  
+} 
+
+public void makeStuff(){ //create things for the game
   background(0);
   for (int i=0; i < stars.length; i++){
     stars[i].show();
   }
-  for (int i=0; i < 20; i++){
+  for (int i=0; i < asteroid.size(); i++){
     asteroid.get(i).show();
     asteroid.get(i).move();
   }
   spaceship.move();
   spaceship.show();
-  
-} 
+}
+
+public void collisionCheck(){ //asteroids don't remove after 1 
+  for(int i=0; i<asteroid.size(); i++){
+    if(dist(spaceship.getX(), spaceship.getY(), asteroid.get(i).getX(),asteroid.get(i).getY()) < 20){
+      asteroid.remove(i);
+    }
+  }
+}
 
 public void keyPressed() {
   if (key=='w') { //up
