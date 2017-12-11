@@ -1,6 +1,7 @@
 Spaceship spaceship;
 Stars[] stars;
 ArrayList<Asteroid> asteroid = new ArrayList<Asteroid>();
+ArrayList<Bullet> bullet = new ArrayList<Bullet>();
 public void setup() 
 {
   size(500, 500);
@@ -17,6 +18,23 @@ public void draw()
 {
   makeStuff();
   collisionCheck();
+  for (int i = 0; i < bullet.size(); i++)
+  {
+    bullet.get(i).move();
+    bullet.get(i).show();
+  }
+  for (int i = 0; i <asteroid.size(); i++)
+  {
+    for (int x = 0; x < bullet.size(); x++)
+    {
+      if (dist(bullet.get(x).getX(), bullet.get(x).getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 20)
+      {
+        asteroid.remove(i);
+        bullet.remove(x);
+        break;
+      }
+    }
+  }
   
 } 
 
@@ -59,5 +77,8 @@ public void keyPressed() {
     spaceship.setDirectionY(0);
     spaceship.setX((int)(Math.random()*300)+100);
     spaceship.setY((int)(Math.random()*300)+100);
+  }
+  if (key == 'f'){ //bullets
+    bullet.add(new Bullet());
   }
 }
