@@ -18,24 +18,6 @@ public void draw()
 {
   makeStuff();
   collisionCheck();
-  for (int i = 0; i < bullet.size(); i++)
-  {
-    bullet.get(i).move();
-    bullet.get(i).show();
-  }
-  for (int i = 0; i <asteroid.size(); i++)
-  {
-    for (int x = 0; x < bullet.size(); x++)
-    {
-      if (dist(bullet.get(x).getX(), bullet.get(x).getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 20)
-      {
-        asteroid.remove(i);
-        bullet.remove(x);
-        break;
-      }
-    }
-  }
-  
 } 
 
 public void makeStuff(){ //create things for the game
@@ -47,14 +29,29 @@ public void makeStuff(){ //create things for the game
     asteroid.get(i).show();
     asteroid.get(i).move();
   }
+  for (int i = 0; i < bullet.size(); i++)
+  {
+    if(bullet.get(i).getX() == 500 || bullet.get(i).getX() == 0){
+      bullet.remove(i);
+    }
+    bullet.get(i).move();
+    bullet.get(i).show();
+  }
   spaceship.move();
   spaceship.show();
 }
 
-public void collisionCheck(){ //asteroids don't remove after 1 
-  for(int i=0; i<asteroid.size(); i++){
-    if(dist(spaceship.getX(), spaceship.getY(), asteroid.get(i).getX(),asteroid.get(i).getY()) < 20){
-      asteroid.remove(i);
+public void collisionCheck(){ //check for collisions
+ for (int i = 0; i <asteroid.size(); i++)
+  {
+    for (int x = 0; x < bullet.size(); x++)
+    {
+      if (dist(bullet.get(x).getX(), bullet.get(x).getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 20)
+      {
+        asteroid.remove(i);
+        bullet.remove(x);
+        break;
+      }
     }
   }
 }
@@ -79,6 +76,6 @@ public void keyPressed() {
     spaceship.setY((int)(Math.random()*300)+100);
   }
   if (key == 'f'){ //bullets
-    bullet.add(new Bullet());
+    bullet.add(new Bullet(spaceship));
   }
 }
