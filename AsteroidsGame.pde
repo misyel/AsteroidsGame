@@ -2,9 +2,20 @@ Spaceship spaceship;
 Stars[] stars;
 ArrayList<Asteroid> asteroid = new ArrayList<Asteroid>();
 ArrayList<Bullet> bullet = new ArrayList<Bullet>();
+boolean start = true;
+boolean started = false;
+float x = 170;
+float y = 250;
+float w = 200;
+float h = 80;
+int time;
+int wait = 1000;
+boolean bullets = false;
+
 public void setup() 
 {
   size(500, 500);
+  time = millis(); //store current time
   spaceship = new Spaceship();
   stars = new Stars[500];
   for (int i=0; i < stars.length; i++){
@@ -16,9 +27,34 @@ public void setup()
 }
 public void draw() 
 {
-  makeStuff();
-  collisionCheck();
+  if(start == true && started == false){
+    starts();
+  }
+  if(started == true && start == false){
+    makeStuff();
+    collisionCheck();
+  }
 } 
+
+public void starts(){ // menu screen
+  background(0);
+   rect(x,y,w,h);
+   fill(255);
+   /*
+   for (int i=0; i < stars.length; i++){
+    stars[i].show();
+  }
+  */
+  text("START",200,310);
+   if(mousePressed){ //button
+     if(mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h){
+       start = false;
+       started = true;
+       //fill(0);
+    
+  }
+ } 
+}
 
 public void makeStuff(){ //create things for the game
   background(0);
@@ -31,9 +67,6 @@ public void makeStuff(){ //create things for the game
   }
   for (int i = 0; i < bullet.size(); i++)
   {
-    if(bullet.get(i).getX() == 500 || bullet.get(i).getX() == 0){
-      bullet.remove(i);
-    }
     bullet.get(i).move();
     bullet.get(i).show();
   }
@@ -76,6 +109,18 @@ public void keyPressed() {
     spaceship.setY((int)(Math.random()*300)+100);
   }
   if (key == 'f'){ //bullets
-    bullet.add(new Bullet(spaceship));
+   if(bullets == false){
+      bullet.add(new Bullet(spaceship));
+      bullets = true;
+    }
+    if(bullets == true){
+      if(millis() - time >= wait){
+        println("tick");//if it is, do something
+        time = millis();//also update the stored time 
+      }
+      else{
+        bullets = false;
+      }
+    }
   }
 }
