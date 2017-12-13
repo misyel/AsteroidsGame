@@ -8,7 +8,7 @@ class Bullet extends Floater{
     double dRadians =myPointDirection*(Math.PI/180);
     myDirectionX = 5 * Math.cos(dRadians) + theShip.getDirectionX();
     myDirectionY = 5 * Math.sin(dRadians) + theShip.getDirectionY();
-    time = millis(); //store current time
+    //time = millis(); //store current time
   }
   
   public void show(){
