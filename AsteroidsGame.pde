@@ -1,23 +1,13 @@
 Spaceship spaceship;
 Stars[] stars;
 ArrayList<Asteroid> asteroid = new ArrayList<Asteroid>();
+ArrayList<sAsteroid> smallAsteroid = new ArrayList<sAsteroid>();
 ArrayList<Bullet> bullet = new ArrayList<Bullet>();
-/*
-PImage img;
-PImage img2;
-*/
 boolean start = true;
 boolean started = false;
-/*
-//start button
-float x = 350;
-float y = 400;
-float w = 180;
-float h = 80;
-*/
 //timer stuff
 int time;
-int wait = 10000;
+int wait = 300;
 boolean bullets = false;
 start startScreen;
 
@@ -32,12 +22,7 @@ public void setup()
   }
   for (int i=0; i < 10; i++) {
     asteroid.add(new Asteroid());
-    System.out.println("creating asteroid");
   }
-  /*
-  img=loadImage("Asteroids.png");
-  img2=loadImage("Start.png");
-  */
   startScreen = new start();
 }
 public void draw() 
@@ -54,24 +39,10 @@ public void draw()
 public void starts() { // menu screen
   startScreen.show();
   startScreen.check();
-  /*
-  background(0);
-  image(img, 0, 50, 900, 180);
-  rect(x, y, w, h);
-  image(img2, x, y, w, h);
-  fill(255);
   for (int i=0; i < stars.length; i++) {
     stars[i].show();
   }
   //text("START",200,310);
-  if (mousePressed) { //button
-    if (mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h) {
-      start = false;
-      started = true;
-      fill(0);
-    }
-  }
-  */
 }
 
 public void makeStuff() { //create things for the game
@@ -82,13 +53,15 @@ public void makeStuff() { //create things for the game
   for (int i=0; i < asteroid.size(); i++) {
     asteroid.get(i).show();
     asteroid.get(i).move();
-    //System.out.println("showing/moving asteroid");
+  }
+  for (int i =0; i<smallAsteroid.size(); i++) {
+    smallAsteroid.get(i).show();
+    smallAsteroid.get(i).move();
   }
   for (int i = 0; i < bullet.size(); i++)
   {
     bullet.get(i).move();
     bullet.get(i).show();
-    System.out.println("moving/showing bullets");
   }
   spaceship.move();
   spaceship.show();
@@ -103,6 +76,15 @@ public void collisionCheck() { //check for collisions
       {
         asteroid.remove(i);
         bullet.remove(x);
+        for (int o=0; o<4; o++) {
+          smallAsteroid.add(new sAsteroid());
+          //FIX THIS
+          if (dist(bullet.get(x).getX(), bullet.get(x).getY(), smallAsteroid.get(o).getX(), smallAsteroid.get(o).getY()) < 20)
+          {
+            smallAsteroid.remove(o);
+            bullet.remove(x);
+          }
+        }
         break;
       }
     }
@@ -129,22 +111,15 @@ public void keyPressed() {
     spaceship.setY((int)(Math.random()*300)+100);
   }
   if (key == 'f') { //bullets
-    bullet.add(new Bullet(spaceship));
-    System.out.println("creating bullets");
-    /*
-   if(bullets == false){
-     bullet.add(new Bullet(spaceship));
-     bullets = true;
-     }
-     if(bullets == true){
-     if(millis() - time >= wait){
-     println("tick");//if it is, do something
-     time = millis();//also update the stored time 
-     }
-     else{
-     bullets = false;
-     }
-     }
-     */
+    if (bullets == false) {
+      bullet.add(new Bullet(spaceship));
+      bullets = true;
+    }
+    if (bullets == true) {
+      if (millis() - time >= wait) {
+        bullets = false;//if it is, do something
+        time = millis();//also update the stored time
+      }
+    }
   }
 }
