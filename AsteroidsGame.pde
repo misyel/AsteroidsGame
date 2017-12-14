@@ -51,6 +51,7 @@ public void makeStuff() { //create things for the game
     stars[i].show();
   }
   for (int i=0; i < asteroid.size(); i++) {
+    //noFill();
     asteroid.get(i).show();
     asteroid.get(i).move();
   }
@@ -76,16 +77,22 @@ public void collisionCheck() { //check for collisions
       {
         asteroid.remove(i);
         bullet.remove(x);
-        for (int o=0; o<4; o++) {
-          smallAsteroid.add(new sAsteroid());
-          //FIX THIS
-          if (dist(bullet.get(x).getX(), bullet.get(x).getY(), smallAsteroid.get(o).getX(), smallAsteroid.get(o).getY()) < 20)
-          {
-            smallAsteroid.remove(o);
-            bullet.remove(x);
-          }
-        }
+        smallCollision();
         break;
+      }
+    }
+  }
+}
+
+public void smallCollision() {
+  for (int o=0; o<4; o++) {
+    smallAsteroid.add(new sAsteroid());
+    for (int p = 0; p < bullet.size(); p++) {
+      if ((get(smallAsteroid.get(o).getX(), smallAsteroid.get(o).getY())) == (get(bullet.get(p).getX(), bullet.get(p).getY())))
+      {
+        smallAsteroid.remove(o);
+        //System.out.println("destroying small asteroid");
+        bullet.remove(p);
       }
     }
   }
@@ -107,8 +114,8 @@ public void keyPressed() {
   if (key=='r') { //hyperspace
     spaceship.setDirectionX(0);
     spaceship.setDirectionY(0);
-    spaceship.setX((int)(Math.random()*300)+100);
-    spaceship.setY((int)(Math.random()*300)+100);
+    spaceship.setX((int)(Math.random()*800)+100);
+    spaceship.setY((int)(Math.random()*800)+100);
   }
   if (key == 'f') { //bullets
     if (bullets == false) {
