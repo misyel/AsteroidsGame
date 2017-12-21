@@ -9,7 +9,14 @@ boolean started = false;
 int time;
 int wait = 300;
 boolean bullets = false;
-start startScreen;
+//start startScreen;
+//start screen stuff
+PImage img;
+PImage img2;
+float x = 350;
+float y = 400;
+float w = 180;
+float h = 80;
 
 public void setup() 
 {
@@ -23,7 +30,9 @@ public void setup()
   for (int i=0; i < 10; i++) {
     asteroid.add(new Asteroid());
   }
-  startScreen = new start();
+  //startScreen = new start();
+  img=loadImage("Asteroids.png");
+  img2=loadImage("Start.png");
 }
 public void draw() 
 {
@@ -37,12 +46,22 @@ public void draw()
 } 
 
 public void starts() { // menu screen
-  startScreen.show();
-  startScreen.check();
+  background(0);
+  image(img, 0, 50, 900, 180);
+  rect(x, y, w, h);
+  image(img2, x, y, w, h);
+  fill(255);
   for (int i=0; i < stars.length; i++) {
     stars[i].show();
   }
   //text("START",200,310);
+  if (mousePressed) { //button
+    if (mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h) {
+      start2 = false;
+      started = true;
+      fill(0);
+    }
+  }
 }
 
 public void makeStuff() { //create things for the game
@@ -73,7 +92,7 @@ public void collisionCheck() { //check for collisions
   {
     for (int x = 0; x < bullet.size(); x++)
     {
-      if (dist(bullet.get(x).getX(), bullet.get(x).getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 20)
+      if (dist(bullet.get(x).getX(), bullet.get(x).getY(), asteroid.get(i).getX(), asteroid.get(i).getY()) < 30)
       {
         asteroid.remove(i);
         bullet.remove(x);
