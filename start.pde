@@ -19,7 +19,7 @@ class start {
   public void check(){
     if (mousePressed) { //button
     if (mouseX>x && mouseX <x+w && mouseY>y && mouseY <y+h) {
-      start = false;
+      start2 = false;
       started = true;
       fill(0);
     }

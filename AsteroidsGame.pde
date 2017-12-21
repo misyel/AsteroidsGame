@@ -3,7 +3,7 @@ Stars[] stars;
 ArrayList<Asteroid> asteroid = new ArrayList<Asteroid>();
 ArrayList<sAsteroid> smallAsteroid = new ArrayList<sAsteroid>();
 ArrayList<Bullet> bullet = new ArrayList<Bullet>();
-boolean start = true;
+boolean start2 = true;
 boolean started = false;
 //timer stuff
 int time;
@@ -27,10 +27,10 @@ public void setup()
 }
 public void draw() 
 {
-  if (start == true && started == false) {
+  if (start2 == true && started == false) {
     starts();
   }
-  if (started == true && start == false) {
+  if (started == true && start2 == false) {
     makeStuff();
     collisionCheck();
   }
