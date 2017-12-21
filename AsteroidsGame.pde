@@ -96,7 +96,7 @@ public void collisionCheck() { //check for collisions
       {
         asteroid.remove(i);
         bullet.remove(x);
-        smallCollision();
+        //smallCollision();
         break;
       }
     }
